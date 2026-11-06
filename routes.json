@@ -1,0 +1,110 @@
+{
+  "routes": [
+    {
+      "route_id": "r01",
+      "stops": [
+        { "stop_id": "s0101", "distance_km": 1.8 },
+        { "stop_id": "s0102", "distance_km": 5.3 },
+        { "stop_id": "s0103", "distance_km": 3.1 },
+        { "stop_id": "s0104", "distance_km": 2.6 },
+        { "stop_id": "s0105", "distance_km": 6.4 },
+        { "stop_id": "s0106", "distance_km": 0.7 },
+        { "stop_id": "s0107", "distance_km": 4.9 }
+      ]
+    },
+    {
+      "route_id": "r02",
+      "stops": [
+        { "stop_id": "s0201", "distance_km": 3.2 },
+        { "stop_id": "s0202", "distance_km": 6.8 },
+        { "stop_id": "s0203", "distance_km": 1.5 },
+        { "stop_id": "s0204", "distance_km": 4.4 },
+        { "stop_id": "s0205", "distance_km": 7.2 },
+        { "stop_id": "s0206", "distance_km": 2.3 }
+      ]
+    },
+    {
+      "route_id": "r03",
+      "stops": [
+        { "stop_id": "s0301", "distance_km": 5.6 },
+        { "stop_id": "s0302", "distance_km": 2.1 },
+        { "stop_id": "s0303", "distance_km": 7.3 },
+        { "stop_id": "s0304", "distance_km": 3.4 },
+        { "stop_id": "s0305", "distance_km": 1.2 }
+      ]
+    },
+    {
+      "route_id": "r04",
+      "stops": [
+        { "stop_id": "s0401", "distance_km": 2.4 },
+        { "stop_id": "s0402", "distance_km": 6.1 },
+        { "stop_id": "s0403", "distance_km": 4.7 },
+        { "stop_id": "s0404", "distance_km": 1.3 },
+        { "stop_id": "s0405", "distance_km": 5.8 },
+        { "stop_id": "s0406", "distance_km": 3.6 },
+        { "stop_id": "s0407", "distance_km": 7.5 },
+        { "stop_id": "s0408", "distance_km": 2.0 }
+      ]
+    },
+    {
+      "route_id": "r05",
+      "stops": [
+        { "stop_id": "s0501", "distance_km": 3.9 },
+        { "stop_id": "s0502", "distance_km": 2.5 },
+        { "stop_id": "s0503", "distance_km": 6.7 },
+        { "stop_id": "s0504", "distance_km": 4.1 },
+        { "stop_id": "s0505", "distance_km": 1.6 },
+        { "stop_id": "s0506", "distance_km": 5.4 }
+      ]
+    },
+    {
+      "route_id": "r06",
+      "stops": [
+        { "stop_id": "s0601", "distance_km": 6.3 },
+        { "stop_id": "s0602", "distance_km": 4.2 },
+        { "stop_id": "s0603", "distance_km": 1.1 },
+        { "stop_id": "s0604", "distance_km": 3.5 },
+        { "stop_id": "s0605", "distance_km": 7.8 },
+        { "stop_id": "s0606", "distance_km": 2.8 },
+        { "stop_id": "s0607", "distance_km": 5.0 },
+        { "stop_id": "s0608", "distance_km": 1.4 },
+        { "stop_id": "s0609", "distance_km": 4.6 },
+        { "stop_id": "s0610", "distance_km": 6.9 }
+      ]
+    },
+    {
+      "route_id": "r07",
+      "stops": [
+        { "stop_id": "s0701", "distance_km": 2.2 },
+        { "stop_id": "s0702", "distance_km": 5.7 },
+        { "stop_id": "s0703", "distance_km": 3.3 },
+        { "stop_id": "s0704", "distance_km": 1.9 },
+        { "stop_id": "s0705", "distance_km": 6.5 },
+        { "stop_id": "s0706", "distance_km": 4.0 },
+        { "stop_id": "s0707", "distance_km": 7.1 },
+        { "stop_id": "s0708", "distance_km": 2.6 },
+        { "stop_id": "s0709", "distance_km": 5.3 },
+        { "stop_id": "s0710", "distance_km": 3.8 },
+        { "stop_id": "s0711", "distance_km": 1.5 },
+        { "stop_id": "s0712", "distance_km": 4.8 }
+      ]
+    },
+    {
+      "route_id": "r08",
+      "stops": [
+        { "stop_id": "s0801", "distance_km": 4.5 },
+        { "stop_id": "s0802", "distance_km": 1.7 },
+        { "stop_id": "s0803", "distance_km": 6.2 },
+        { "stop_id": "s0804", "distance_km": 3.0 },
+        { "stop_id": "s0805", "distance_km": 5.9 },
+        { "stop_id": "s0806", "distance_km": 2.4 },
+        { "stop_id": "s0807", "distance_km": 7.4 },
+        { "stop_id": "s0808", "distance_km": 1.3 },
+        { "stop_id": "s0809", "distance_km": 4.3 },
+        { "stop_id": "s0810", "distance_km": 6.0 },
+        { "stop_id": "s0811", "distance_km": 3.5 },
+        { "stop_id": "s0812", "distance_km": 5.1 }
+      ]
+    }
+  ]
+}

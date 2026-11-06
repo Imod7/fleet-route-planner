@@ -1,0 +1,49 @@
+{
+  "vehicles": [
+    {
+      "id": "v-00001",
+      "capacity_kwh": 5,
+      "kwh_per_100_km": 14
+    },
+    {
+      "id": "v-00006",
+      "capacity_kwh": 12,
+      "kwh_per_100_km": 15
+    },
+    {
+      "id": "v-00004",
+      "capacity_kwh": 9,
+      "kwh_per_100_km": 12
+    },
+    {
+      "id": "v-00009",
+      "capacity_kwh": 14,
+      "kwh_per_100_km": 22
+    },
+    {
+      "id": "v-00005",
+      "capacity_kwh": 9,
+      "kwh_per_100_km": 18
+    },
+    {
+      "id": "v-00007",
+      "capacity_kwh": 12,
+      "kwh_per_100_km": 23
+    },
+    {
+      "id": "v-00002",
+      "capacity_kwh": 15,
+      "kwh_per_100_km": 19
+    },
+    {
+      "id": "v-00003",
+      "capacity_kwh": 2,
+      "kwh_per_100_km": 18
+    },
+    {
+      "id": "v-00008",
+      "capacity_kwh": 14,
+      "kwh_per_100_km": 12
+    }
+  ]
+}
