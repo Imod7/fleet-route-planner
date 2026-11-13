@@ -1,12 +1,12 @@
 use anyhow::Context;
+use clap::Parser;
 use std::collections::HashMap;
 use std::fs;
-use clap::Parser;
 
 use fleet_route_planner::{
-    print_comparison, print_optimal_assignment, print_worst_case,
-    route_distance, vehicle_range, energy,
-    Route, RoutesFile, Vehicle, VehiclesFile};
+    Route, RoutesFile, Vehicle, VehiclesFile, energy, print_comparison, print_optimal_assignment,
+    print_worst_case, route_distance, vehicle_range,
+};
 
 #[derive(Parser)]
 pub struct Args {
