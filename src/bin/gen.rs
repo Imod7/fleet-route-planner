@@ -1,39 +1,9 @@
 use rand::RngExt;
-use serde::Serialize;
 use std::fs::File;
 use std::io::Write;
 use clap::Parser;
 
-// ------- Data Structures ---------------------------------
-
-#[derive(Serialize)]
-struct Stop {
-    stop_id: String,
-    distance_km: f64,
-}
-
-#[derive(Serialize)]
-pub struct Route {
-    route_id: String,
-    stops: Vec<Stop>,
-}
-
-#[derive(Serialize)]
-pub struct RoutesFile {
-    routes: Vec<Route>,
-}
-
-#[derive(Serialize)]
-pub struct Vehicle {
-    id: String,
-    capacity_kwh: u32,
-    kwh_per_100_km: u32,
-}
-
-#[derive(Serialize)]
-pub struct VehiclesFile {
-    vehicles: Vec<Vehicle>,
-}
+use fleet_route_planner::{Route, RoutesFile, Stop, Vehicle, VehiclesFile};
 
 #[derive(Parser)]
 pub struct Args {
@@ -72,8 +42,8 @@ fn main() {
 
     let vehicles: Vec<Vehicle> = (0..args.n_vehicles).map(|i| Vehicle {
             id: format!("r{:03}", i + 1),
-            capacity_kwh: rng.random_range(50..=150),
-            kwh_per_100_km: rng.random_range(12..=22),
+            capacity_kwh: rng.random_range(50.0_f64..=150.0),
+            kwh_per_100_km: rng.random_range(12.0_f64..=22.0_f64),
         }).collect();
 
     // ------- write files ---------------------------------

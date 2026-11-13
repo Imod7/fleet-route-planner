@@ -2,108 +2,16 @@ use anyhow::Context;
 use std::collections::HashMap;
 use std::fs;
 use clap::Parser;
-use serde::Deserialize;
 
-// ------- Data Structures ---------------------------------
-
-#[derive(Deserialize, Debug)]
-struct Stop {
-    stop_id: String,
-    distance_km: f64,
-}
-
-#[derive(Deserialize, Debug)]
-pub struct Route {
-    route_id: String,
-    stops: Vec<Stop>,
-}
-
-#[derive(Deserialize)]
-pub struct RoutesFile {
-    routes: Vec<Route>,
-}
-
-#[derive(Deserialize, Debug)]
-pub struct Vehicle {
-    id: String,
-    capacity_kwh: f64,
-    kwh_per_100_km: f64,
-}
-
-#[derive(Deserialize)]
-pub struct VehiclesFile {
-    vehicles: Vec<Vehicle>,
-}
+use fleet_route_planner::{
+    print_comparison, print_optimal_assignment, print_worst_case,
+    route_distance, vehicle_range, energy,
+    Route, RoutesFile, Vehicle, VehiclesFile};
 
 #[derive(Parser)]
 pub struct Args {
     routes_path: String,
     vehicles_path: String,
-}
-
-// ------- Helpers -----------------------------------------
-
-fn route_distance(route: &Route) -> f64 {
-    route.stops.iter().map(|s| s.distance_km).sum()
-}
-
-/// Maximum km the vehicle can travel on a full charge.
-fn vehicle_range(v: &Vehicle) -> f64 {
-    v.capacity_kwh * 100.0 / v.kwh_per_100_km
-}
-
-/// Energy (kWh) to complete a route of `dist` km with vehicle `v`.
-fn energy(dist: f64, v: &Vehicle) -> f64 {
-    dist * v.kwh_per_100_km / 100.0
-}
-
-// ------- Printing Helpers --------------------------------
-
-fn print_worst_case(vehicle: &Vehicle, total_distance: f64, worst_case: f64) {
-    println!("=== Worst case ===");
-    println!(
-        "Least efficient vehicle : {} ({} kWh/100km)",
-        vehicle.id, vehicle.kwh_per_100_km
-    );
-    println!("Total distance          : {:.1} km", total_distance);
-    println!("Worst-case energy       : {:.3} kWh\n", worst_case);
-}
-
-fn print_optimal_assignment(
-    pairs: &Vec<(String, String, f64, f64)>,
-    vehicles: &[Vehicle],
-    used: &HashMap<&str, bool>,
-    total_optimal: f64,
-) {
-    println!("=== Optimal assignment ===");
-    println!(
-        "{:<12} {:<8} {:>10} {:>13}",
-        "Route", "Vehicle", "Dist (km)", "Energy (kWh)"
-    );
-    println!("{}", "-".repeat(45));
-    for (rid, vid, dist, e) in pairs {
-        println!("{:<12} {:<8} {:>10.1} {:>13.3}", rid, vid, dist, e);
-    }
-
-    let unused: Vec<&str> = vehicles
-        .iter()
-        .map(|v| v.id.as_str())
-        .filter(|id| !used.get(id).copied().unwrap_or(false))
-        .collect();
-    if !unused.is_empty() {
-        println!("\nUnused vehicles       : {}", unused.join(", "));
-    }
-    println!("\nOptimal total energy  : {:.3} kWh\n", total_optimal);
-}
-
-fn print_comparison(worst_case: f64, total_optimal: f64) {
-    let savings = worst_case - total_optimal;
-    let pct = savings / worst_case * 100.0;
-
-    println!("=== Comparison ===");
-    println!("Worst case : {:.3} kWh", worst_case);
-    println!("Optimal : {:.3} kWh", total_optimal);
-    println!("Energy saved : {:.3} kWh  ({:.1} %)", savings, pct);
 }
 
 // ------- main --------------------------------------------
