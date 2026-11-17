@@ -1,11 +1,10 @@
 use anyhow::Context;
 use clap::Parser;
-use std::collections::HashMap;
 use std::fs;
 
 use fleet_route_planner::{
-    Route, RoutesFile, Vehicle, VehiclesFile, energy, print_comparison, print_optimal_assignment,
-    print_worst_case, route_distance, vehicle_range,
+    Route, RoutesFile, Vehicle, VehiclesFile, greedy_first_fit, print_comparison,
+    print_optimal_assignment, print_worst_case, route_distance,
 };
 
 #[derive(Parser)]
@@ -47,48 +46,12 @@ fn main() -> anyhow::Result<()> {
 
     print_worst_case(least_efficient, total_distance, worst_case);
 
-    // ------- Optimal assignment (greedy) -----------------
-    // routes: longest first
-    let mut routes_sorted = routes;
-    routes_sorted.sort_by(|a, b| route_distance(b).partial_cmp(&route_distance(a)).unwrap());
+    // ------- Greedy assignment ---------------------------
+    let assignment = greedy_first_fit(&routes, &vehicles);
 
-    // println!("{:<8} {:>10}", "Route", "Distance (km)");
-    // for route in &routes_sorted {
-    //     println!("{:<8} {:>10.2}", route.route_id, route_distance(route));
-    // }
+    print_optimal_assignment(&assignment);
 
-    // vehicles: most efficient first
-    let mut vehicles_sorted = vehicles;
-    vehicles_sorted.sort_by(|a, b| a.kwh_per_100_km.partial_cmp(&b.kwh_per_100_km).unwrap());
-
-    // println!("{:<8} {:>10}", "Vehicle", "Range");
-    // for vehicle in &vehicles_sorted {
-    //     println!("{:<8?} {:>10.2?}", vehicle.id, vehicle_range(vehicle));
-    // }
-
-    let mut used: HashMap<&str, bool> = HashMap::new();
-    let mut pairs: Vec<(String, String, f64, f64)> = Vec::new();
-    let mut total_optimal: f64 = 0.0;
-
-    for route in &routes_sorted {
-        let d = route_distance(route);
-        for v in &vehicles_sorted {
-            if used.get(v.id.as_str()).copied().unwrap_or(false) {
-                continue;
-            }
-            if vehicle_range(v) >= d {
-                used.insert(v.id.as_str(), true);
-                let e = energy(d, v);
-                total_optimal += e;
-                pairs.push((route.route_id.clone(), v.id.clone(), d, e));
-                break;
-            }
-        }
-    }
-
-    print_optimal_assignment(&pairs, &vehicles_sorted, &used, total_optimal);
-
-    print_comparison(worst_case, total_optimal);
+    print_comparison(worst_case, assignment.total_energy);
 
     Ok(())
 }
