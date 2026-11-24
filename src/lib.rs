@@ -62,7 +62,6 @@ pub fn energy(dist: f64, v: &Vehicle) -> f64 {
 }
 
 pub fn greedy_first_fit(routes: &[Route], vehicles: &[Vehicle]) -> Assignment {
-    // ------- Optimal assignment (greedy) -----------------
     // routes: longest first
     let mut routes_sorted: Vec<&Route> = routes.iter().collect();
     routes_sorted.sort_by(|a, b| route_distance(b).partial_cmp(&route_distance(a)).unwrap());
@@ -81,8 +80,8 @@ pub fn greedy_first_fit(routes: &[Route], vehicles: &[Vehicle]) -> Assignment {
     //     println!("{:<8?} {:>10.2?}", vehicle.id, vehicle_range(vehicle));
     // }
 
-    let mut used: HashMap<&str, bool> = HashMap::new();
-    let mut pairs: Vec<(String, String, f64, f64)> = Vec::new();
+    let mut used: HashMap<&str, bool> = HashMap::with_capacity(vehicles.len());
+    let mut pairs: Vec<(String, String, f64, f64)> = Vec::with_capacity(routes_sorted.len().min(vehicles_sorted.len()));
     let mut total_energy: f64 = 0.0;
 
     for route in &routes_sorted {
