@@ -1,4 +1,4 @@
-use std::collections::HashMap;
+use std::collections::HashSet;
 
 use serde::{Deserialize, Serialize};
 
@@ -80,18 +80,18 @@ pub fn greedy_first_fit(routes: &[Route], vehicles: &[Vehicle]) -> Assignment {
     //     println!("{:<8?} {:>10.2?}", vehicle.id, vehicle_range(vehicle));
     // }
 
-    let mut used: HashMap<&str, bool> = HashMap::with_capacity(vehicles.len());
+    let mut used: HashSet<&str> = HashSet::with_capacity(vehicles.len());
     let mut pairs: Vec<(String, String, f64, f64)> = Vec::with_capacity(routes_sorted.len().min(vehicles_sorted.len()));
     let mut total_energy: f64 = 0.0;
 
     for route in &routes_sorted {
         let d = route_distance(route);
         for v in &vehicles_sorted {
-            if used.get(v.id.as_str()).copied().unwrap_or(false) {
+            if used.contains(v.id.as_str()) {
                 continue;
             }
             if vehicle_range(v) >= d {
-                used.insert(v.id.as_str(), true);
+                used.insert(v.id.as_str());
                 let e = energy(d, v);
                 total_energy += e;
                 pairs.push((route.route_id.clone(), v.id.clone(), d, e));
@@ -103,7 +103,7 @@ pub fn greedy_first_fit(routes: &[Route], vehicles: &[Vehicle]) -> Assignment {
     let unused: Vec<String> = vehicles_sorted
         .iter()
         .map(|v| v.id.clone())
-        .filter(|id| !used.contains_key(id.as_str()))
+        .filter(|id| !used.contains(id.as_str()))
         .collect();
 
     Assignment {
